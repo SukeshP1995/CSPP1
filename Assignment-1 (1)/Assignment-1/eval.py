@@ -184,3 +184,4 @@ score, totalscore = runProcess("pylint Solution.py","Your code has been rated at
 path = os.getcwd().split('\\')
 msg = path[-3] +' '+ path[-1]
 runProcess("git commit -am \""+ msg +" -> " + str(cases) + "of" + str(totalcases) + " passed." + " pylint: " + str(score) + "/" + str(totalscore) + " \"")
+runProcess("git push -u origin master")
