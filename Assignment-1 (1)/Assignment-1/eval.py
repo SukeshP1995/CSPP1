@@ -38,9 +38,13 @@ def check_if_user():
     return False
 
 def check_push():
-    run_proc = subprocess.Popen('git push -u origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = run_proc.communicate()
-    print(stdout + '->' + stderr)
+    try:
+        run_proc = subprocess.Popen('git push -u origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = run_proc.communicate()
+        print(stdout + '->' + stderr)
+        return True
+    except Exception('e'):
+        return False
 
 def runProcess(command, expr=None):
     run_proc = subprocess.Popen(command, stdout=subprocess.PIPE)
@@ -189,4 +193,5 @@ score, totalscore = runProcess("pylint Solution.py","Your code has been rated at
 path = os.getcwd().split('\\')
 msg = path[-3] +' '+ path[-1]
 runProcess("git commit -am \""+ msg +" -> " + str(cases) + " of " + str(totalcases) + " passed." + " pylint: " + str(score) + "/" + str(totalscore) + " \"")
-runProcess("git push -u origin master")
+if not check_push():
+    print('Please connect to internet to push and submit your program')
