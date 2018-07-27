@@ -37,6 +37,11 @@ def check_if_user():
     if stdout: return True
     return False
 
+def check_push():
+    run_proc = subprocess.Popen('git push -u origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = run_proc.communicate()
+    print(stdout + '->' + stderr)
+
 def runProcess(command, expr=None):
     run_proc = subprocess.Popen(command, stdout=subprocess.PIPE)
     proc_out = run_proc.stdout.read().decode('utf-8')
@@ -154,7 +159,7 @@ if not check_if_repo():
 
 if not check_if_user():
     raise Exception('user not logged in')
-    
+
 inputs = sorted(inputs)
 outputs = sorted(outputs)
 
@@ -183,5 +188,5 @@ cases, totalcases = result
 score, totalscore = runProcess("pylint Solution.py","Your code has been rated at (.*)/(.*) \(.*\)")
 path = os.getcwd().split('\\')
 msg = path[-3] +' '+ path[-1]
-runProcess("git commit -am \""+ msg +" -> " + str(cases) + "of" + str(totalcases) + " passed." + " pylint: " + str(score) + "/" + str(totalscore) + " \"")
+runProcess("git commit -am \""+ msg +" -> " + str(cases) + " of " + str(totalcases) + " passed." + " pylint: " + str(score) + "/" + str(totalscore) + " \"")
 runProcess("git push -u origin master")
