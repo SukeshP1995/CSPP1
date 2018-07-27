@@ -41,7 +41,7 @@ def check_push():
     try:
         run_proc = subprocess.Popen('git push -u origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = run_proc.communicate()
-        print(stdout + '->' + stderr)
+        print(str(stdout) + '->' + str(stderr))
         return True
     except Exception('e'):
         return False
