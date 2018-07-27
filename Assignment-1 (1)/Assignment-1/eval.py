@@ -41,7 +41,7 @@ def check_push():
     try:
         run_proc = subprocess.Popen('git push -u origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = run_proc.communicate()
-        print(str(stdout) + '->' + str(stderr))
+        print(str(stdout.decode('utf-8')) + '->' + str(stderr.decode('utf-8')))
         if stderr:
             return True
         return True
